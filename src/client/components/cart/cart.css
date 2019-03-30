@@ -1,0 +1,57 @@
+.cart-flex {
+  display:flex;
+  /* justify-content: space-between; */
+  
+}
+
+.shops {
+  /* width: 500px; */
+  /* height: 300px; */
+  /* border: 1px solid #e5e5e5; */
+  display:flex;
+  margin-left: 10px;
+}
+
+.shops-name {
+  display:flex;
+  margin-left: 10px;
+  
+}
+.shop-name{
+  display:flex;
+  width:185px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.shop-name h3{
+  display:flex;
+  justify-content: center;
+}
+
+.shop-name span{
+  display:flex;
+  justify-content: center;
+}
+.cart-list {
+  margin-top: 16px;
+}
+
+.cart-save {
+  width: 300px;
+}
+.cart-save-button {
+  margin-bottom: 10px;
+  display: flex;
+  /* justify-content: space-between; */
+
+}
+
+a {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+ul {
+  list-style-type: square !important; /* Квадратные маркеры */
+ }

@@ -1,0 +1,75 @@
+.market-icon {
+  width: 27px;
+  height: 25px;
+  stroke: #B2D136;
+  stroke-width: 2;
+}
+
+.fa-cannabis-icon{
+  font-size: 24px;
+}
+
+.catalog-market__link {
+  margin-top: 5px;
+  margin-left: 5px;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+
+.catalog-market-list{
+  padding: 0;
+}
+
+.catalog-market__item{
+  margin-bottom: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+}
+
+.catalog-market__text{
+  margin-top: 5px;
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.cart-element-item:hover{
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  width: 300px;
+  height: 140px;
+}
+
+.cart-element-item:hover .catalog-market__text{
+  font-weight: bold;
+  color: #000000;
+}
+
+.cart-element-item{
+  width:300px;
+  height:140px ;
+  padding:10px;
+
+}
+
+.cart-element-flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-element-product-name{
+  height: 50px;
+}
+
+.btn-cart-element{
+  background-color: #B2D136;
+  border: none;
+  outline: none;
+  width: 38px;
+  height: 38px;
+}

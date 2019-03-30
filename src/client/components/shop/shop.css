@@ -1,0 +1,22 @@
+.info-product{
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  width: 400px;
+  font-size: 18px;
+}
+
+.link-shop-product{
+  text-decoration: none !important;
+  color: #B2D136;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.link-shop-product:hover{
+  text-decoration: none !important;
+  color: #018B44;
+  font-size: 20px;
+  font-weight: bold;
+}

@@ -1,0 +1,7 @@
+.cart-price{
+  height: 150px ;
+  display: flex;
+  align-items: center;
+  width:185px; 
+  justify-content: center;
+}
