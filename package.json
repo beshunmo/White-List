@@ -25,7 +25,6 @@
     "start-client": "webpack-dev-server --mode development",
     "start-dev": "node start.js",
     "start-dev2": "npm run start-server && npm run start-client"
-
   },
   "dependencies": {
     "bcrypt": "^3.0.5",
@@ -55,6 +54,7 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7",
     "redux-thunk": "^2.3.0",
+    "request-promise-native": "^1.0.7",
     "winston": "^3.2.1"
   },
   "devDependencies": {
