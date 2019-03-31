@@ -159,6 +159,8 @@ router.get('/upload', async (req, res) => {
 });
 
 router.get('/upload2', async (req, res) => {
+  const baseUrl = process.env.baseurl;
+  console.log('TCL: baseUrl', baseUrl);
   res.render('upload2');
 });
 
@@ -177,7 +179,7 @@ router.post('/domophone', async (req, res) => {
     res.status(200);
     res.send('fdgg');
     let answer = false;
-    const baseUrl = process.env.baseUrl || 'http://localhost:3000/assets/public/uploads/';
+    const baseUrl = process.env.baseurl;
       for (const guest of guests) { // eslint-disable-line
       const url1 = `${baseUrl}${testFile}`;
       const url2 = `${baseUrl}${guest.img}`;
