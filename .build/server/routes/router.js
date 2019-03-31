@@ -14,47 +14,78 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 // const multiparty = require('multiparty');
+const base64Img = require('base64-img');
 const Product = require('../models/product');
 const Shops = require('../models/shops');
 const Carts = require('../models/cart');
+const Guests = require('../models/guests');
 // const authenticationMiddlewareApi = require('../authentication/middleware');
-
+const compareFoto = require('../face/verify');
 
 const router = _express2.default.Router();
 
+// http://localhost:3000/assets/public/uploads/userFile-1554024227144.jpg
+
+let newFile = '';
+
 const storage = multer.diskStorage({
   destination(req, file, callback) {
-    fs.mkdir('./uploads', err => {
+    fs.mkdir('./.build/client/public/uploads', err => {
       if (err) {
         console.log(err.stack);
-        callback(null, './uploads');
+        callback(null, './.build/client/public/uploads');
       } else {
-        callback(null, './uploads');
+        callback(null, './.build/client/public/uploads');
       }
     });
   },
   filename(req, file, callback) {
-    callback(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    newFile = `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`;
+    console.log(newFile);
+    callback(null, newFile);
   }
 });
 
-router.post('/file', (req, res) => {
-  const upload = multer({
-    storage,
-    fileFilter(req, file, callback) {
-      const ext = path.extname(file.originalname);
-      if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-        return callback(new Error('Only images are allowed'));
+router.post('/file', async (req, res) => {
+  try {
+    // if (req.user) {
+
+    const upload = multer({
+      storage,
+      fileFilter(req, file, callback) {
+        const ext = path.extname(file.originalname);
+        newFile = `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`;
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+          return callback(new Error('Only images are allowed'));
+        }
+        callback(null, true);
       }
-      callback(null, true);
-    }
-  }).single('userFile');
-  upload(req, res, err => {
-    if (err) {
-      return res.end('Error uploading file.');
-    }
-    res.end('File is uploaded');
-  });
+    }).single('userFile');
+    upload(req, res, async err => {
+      if (err) {
+        return res.end('Error uploading file.');
+      }
+      const guest = new Guests({
+        // user_id: req.user._id,
+        // title: req.body.title,
+        img: newFile
+      });
+      console.log('TCL: newFile', newFile);
+      await guest.save();
+      console.log('guest SAVED');
+      res.end('File is uploaded');
+    });
+
+    // res.status(200);
+    // res.send('guest SAVED');
+    // } else {
+    //   res.status(401);
+    //   res.send('401 UNAUTHORISED USER');
+    // }
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
 });
 
 router.get('/user', (req, res) => {
@@ -128,88 +159,47 @@ router.get('/product/:id', async (req, res) => {
   res.send(product);
 });
 
-router.post('/upload', (req, res, next) => {
-  console.log(req);
-  const imageFile = req.files.file;
-
-  imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, err => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    res.json({ file: `public/${req.body.filename}.jpg` });
-  });
-});
-
-// router.post('/upload', (req, res, next) => {
-//   console.log('started');
-//   // create a form to begin parsing
-//   const form = new multiparty.Form();
-//   const uploadFile = { uploadPath: '', type: '', size: 0 };
-//   const maxSize = 20 * 1024 * 1024; // 20MB
-//   const supportMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-//   const errors = [];
-
-//   form.on('error', (err) => {
-//     if (fs.existsSync(uploadFile.path)) {
-//       fs.unlinkSync(uploadFile.path);
-//       console.log('error');
-//     }
-//   });
-
-//   form.on('close', () => {
-//     if (errors.length == 0) {
-//       res.send({ status: 'ok', text: 'Success' });
-//       console.log('ok');
-//     } else {
-//       if (fs.existsSync(uploadFile.path)) {
-//         fs.unlinkSync(uploadFile.path);
-//       }
-//       res.send({ status: 'bad', errors });
-//       console.log(errors);
-//     }
-//   });
-
-//   // listen on part event for image file
-//   form.on('part', (part) => {
-//     uploadFile.size = part.byteCount;
-//     uploadFile.type = part.headers['content-type'];
-//     uploadFile.path = `./files/${part.filename}`;
-//     console.log(uploadFile.path);
-
-//     if (uploadFile.size > maxSize) {
-//       errors.push(`File size is ${uploadFile.size / 1024 / 1024}. Limit is${maxSize / 1024 / 1024}MB.`);
-//     }
-
-//     if (supportMimeTypes.indexOf(uploadFile.type) == -1) {
-//       errors.push(`Unsupported mimetype ${uploadFile.type}`);
-//     }
-
-//     if (errors.length == 0) {
-//       const out = fs.createWriteStream(uploadFile.path);
-//       part.pipe(out);
-//     } else {
-//       part.resume();
-//     }
-//   });
-
-//   // parse the form
-//   form.parse(req);
-// });
-
-// // router.post('/upload', async (req, res) => {
-// //   const product = await Product.findOne({ _id: req.params.id });
-// //   console.log(product);
-// //   res.status(200);
-// //   res.send(product);
-// // });
-
 router.get('/upload', async (req, res) => {
   res.render('upload');
 });
 
 router.get('/upload2', async (req, res) => {
   res.render('upload2');
+});
+
+router.get('/domophone', async (req, res) => {
+  res.render('domophone');
+});
+
+router.post('/domophone', async (req, res) => {
+  try {
+    // if (req.user) {
+    // const guests = await Guests.find({ user_id: req.user._id });
+    const guests = await Guests.find();
+    const product = req.body.data;
+    const testFile = `test${Date.now()}`;
+    base64Img.img(product, './.build/client/public/uploads', testFile, (err, filepath) => {});
+    res.status(200);
+    res.send('fdgg');
+    let answer = false;
+    for (const guest of guests) {
+      // eslint-disable-line
+      const url1 = `http://localhost:3000/assets/public/uploads/${testFile}`;
+      const url2 = `http://localhost:3000/assets/public/uploads/${guest.img}`;
+      answer = await compareFoto(url1, url2); // eslint-disable-line
+      console.log('TCL: answer', answer);
+    }
+    res.status(200);
+    console.log('TCL: answer', answer);
+    res.send(answer);
+    // } else {
+    //   res.status(401);
+    //   res.send('401 UNAUTHORISED USER');
+    // }
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
 });
 
 exports.default = router;

@@ -26,7 +26,7 @@ const params = {
 const options = {
   uri: uriBase,
   qs: params,
-  body: `${'{"url": ' + '"'}${imageUrl }"}`,
+  body: `${'{"url": ' + '"'}${imageUrl}"}`,
   headers: {
     'Content-Type': 'application/json',
     'Ocp-Apim-Subscription-Key': subscriptionKey
@@ -36,7 +36,7 @@ const options = {
 const options2 = {
   uri: uriBase,
   qs: params,
-  body: `${'{"url": ' + '"'}${imageUrl2 }"}`,
+  body: `${'{"url": ' + '"'}${imageUrl}"}`,
   headers: {
     'Content-Type': 'application/json',
     'Ocp-Apim-Subscription-Key': subscriptionKey
@@ -57,18 +57,18 @@ async function getId() {
     console.log('JSON Response\n');
     console.log(jsonResponse);
   });
+  console.log('JSON Response\n');
 
+  // await request.post(options2, async (error, response, body) => {
+  //   if (error) {
+  //     console.log('Error: ', error);
+  //     return;
+  //   }
+  //   jsonResponse2 = JSON.parse(body);
 
-  await request.post(options2, async (error, response, body) => {
-    if (error) {
-      console.log('Error: ', error);
-      return;
-    }
-    jsonResponse2 = JSON.parse(body);
-
-    console.log('JSON Response2\n');
-    console.log(jsonResponse2);
-  });
+  //   console.log('JSON Response2\n');
+  //   console.log(jsonResponse2);
+  // });
 }
 
 
@@ -102,5 +102,5 @@ async function compareFoto() {
   }
 }
 
-
-compareFoto();
+getId();
+// compareFoto();

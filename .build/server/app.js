@@ -50,11 +50,14 @@ const passport = require('passport');
 const exphbs = require('express-handlebars');
 
 const app = (0, _express2.default)();
-// parse application/x-www-form-urlencoded
-app.use(_bodyParser2.default.urlencoded({ extended: false }));
+// // parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
-app.use(_bodyParser2.default.json());
+// // parse application/json
+// app.use(bodyParser.json());
+
+app.use(_bodyParser2.default.json({ limit: '50mb' }));
+app.use(_bodyParser2.default.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 
 mongoose.connect(process.env.database, {
   useNewUrlParser: true,
