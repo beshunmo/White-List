@@ -1,5 +1,6 @@
 import express from 'express';
 
+const fetch = require('node-fetch');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
