@@ -81,4 +81,15 @@ router.get('/product/:id', async (req, res) => {
   res.send(product);
 });
 
+router.get('/upload', async (req, res) => {
+  res.render('upload');
+});
+
+router.post('/upload', async (req, res) => {
+  const product = await Product.findOne({ _id: req.params.id });
+  console.log(product);
+  res.status(200);
+  res.send(product);
+});
+
 export default router;
