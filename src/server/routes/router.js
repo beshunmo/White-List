@@ -103,4 +103,8 @@ router.post('/domophone', (req, res) => {
   res.send('fdgg');
 });
 
+router.get('/whitelist', async (req, res) => {
+  res.render('main-page');
+});
+
 export default router;
