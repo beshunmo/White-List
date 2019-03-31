@@ -1,4 +1,14 @@
-import express from 'express';
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = require('express');
+
+var _express2 = _interopRequireDefault(_express);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const path = require('path');
 const multer = require('multer');
@@ -12,8 +22,7 @@ const Guests = require('../models/guests');
 // const authenticationMiddlewareApi = require('../authentication/middleware');
 const compareFoto = require('../face/verify');
 
-const router = express.Router();
-
+const router = _express2.default.Router();
 
 // http://localhost:3000/assets/public/uploads/userFile-1554024227144.jpg
 
@@ -21,7 +30,7 @@ let newFile = '';
 
 const storage = multer.diskStorage({
   destination(req, file, callback) {
-    fs.mkdir('./.build/client/public/uploads', (err) => {
+    fs.mkdir('./.build/client/public/uploads', err => {
       if (err) {
         console.log(err.stack);
         callback(null, './.build/client/public/uploads');
@@ -52,7 +61,7 @@ router.post('/file', async (req, res) => {
         callback(null, true);
       }
     }).single('userFile');
-    upload(req, res, async (err) => {
+    upload(req, res, async err => {
       if (err) {
         return res.end('Error uploading file.');
       }
@@ -67,8 +76,8 @@ router.post('/file', async (req, res) => {
       res.end('File is uploaded');
     });
 
-  // res.status(200);
-  // res.send('guest SAVED');
+    // res.status(200);
+    // res.send('guest SAVED');
     // } else {
     //   res.status(401);
     //   res.send('401 UNAUTHORISED USER');
@@ -79,7 +88,6 @@ router.post('/file', async (req, res) => {
   }
 });
 
-
 router.get('/user', (req, res) => {
   if (req.user) {
     res.status(200);
@@ -89,7 +97,6 @@ router.get('/user', (req, res) => {
     res.send('401 UNAUTHORISED USER');
   }
 });
-
 
 router.get('/cart', async (req, res) => {
   try {
@@ -127,7 +134,6 @@ router.post('/cart', async (req, res, next) => {
   }
 });
 
-
 router.get('/products', async (req, res) => {
   const products = await Product.find();
   res.status(200);
@@ -153,7 +159,6 @@ router.get('/product/:id', async (req, res) => {
   res.send(product);
 });
 
-
 router.get('/upload', async (req, res) => {
   res.render('upload');
 });
@@ -177,7 +182,8 @@ router.post('/domophone', async (req, res) => {
     res.status(200);
     res.send('fdgg');
     let answer = false;
-      for (const guest of guests) { // eslint-disable-line
+    for (const guest of guests) {
+      // eslint-disable-line
       const url1 = `http://localhost:3000/assets/public/uploads/${testFile}`;
       const url2 = `http://localhost:3000/assets/public/uploads/${guest.img}`;
       answer = await compareFoto(url1, url2); // eslint-disable-line
@@ -196,4 +202,4 @@ router.post('/domophone', async (req, res) => {
   }
 });
 
-export default router;
+exports.default = router;
