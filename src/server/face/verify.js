@@ -120,12 +120,12 @@ async function compareFoto(url1, url2) {
       }
     };
     let jsonResponseCompare = [];
-    await request.post(optionsCompare, (error, response, body) => {
+    await request.post(optionsCompare, async (error, response, body) => {
       if (error) {
         console.log('Error: ', error);
         return;
       }
-      jsonResponseCompare = JSON.parse(body);
+      jsonResponseCompare = await JSON.parse(body);
       console.log('JSON ResponseCompare\n');
       console.log(jsonResponseCompare);
     });
