@@ -68,7 +68,7 @@ router.post('/file', async (req, res) => {
       }
       const guest = new Guests({
         // user_id: req.user._id,
-        // title: req.body.title,
+        title: req.body.title,
         img: newFile
       });
       console.log('TCL: newFile', newFile);

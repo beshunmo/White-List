@@ -380,6 +380,15 @@ body {
   color: #FFFFFF;
 }
 
+.form-add-user {
+  position: absolute;
+  width: 561px;
+  height: 46px;
+  right: 357px;
+  top: 200px;
+
+}
+
 .user {
   display: flex;
   background-color: #FFFFFF;
@@ -387,7 +396,7 @@ body {
   width: 561px;
   height: 153px;
   left: 282px;
-  top: 213px;
+  top: 263px;
 }
 
 .user-name {
