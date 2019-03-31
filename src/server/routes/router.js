@@ -200,4 +200,8 @@ router.post('/domophone', async (req, res) => {
   }
 });
 
+router.get('/whitelist', async (req, res) => {
+  res.render('main-page');
+});
+
 export default router;
