@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="../../client/public/domophone.css">
+  <link rel="stylesheet" href="/assets/public/css/domophone.css">
 </head>
 
 <body>
@@ -15,7 +15,6 @@
       <video id="video">Video stream not available.</video>
     </div>
     <canvas id="canvas"></canvas>
-    <a id="dl-btn" href="#" download="glorious_selfie.jpeg">Save Photo</a>
     <div class="output-domophone"></div>
   </div>
 
@@ -40,9 +39,11 @@
       var canvas = null;
       var photo = null;
       var startbutton = null;
+      var output = null;
 
       function startup() {
-        const output = document.querySelector('.output-domophone');
+        output = document.querySelector('.output-domophone');
+				console.log("TCL: startup -> output", output)
         video = document.getElementById('video');
         canvas = document.getElementById('canvas');
         photo = document.getElementById('photo');
@@ -110,7 +111,6 @@
           context.drawImage(video, 0, 0, width, height);
 
           var data = canvas.toDataURL('image/jpeg', 1.0);
-          document.querySelector('#dl-btn').href = data;
 
           const rawResponse = await fetch('/api/domophone', {
             method: 'POST',
@@ -121,10 +121,16 @@
             body: JSON.stringify({ 'data': data })
           });
           const answer = await rawResponse.text();
-          if (answer) {
-
-          }
           console.log(answer);
+          console.log(output);
+          if(answer) {
+            output.classList.add('output-domophone-active');
+            setTimeout(() => {
+              output.classList.remove('output-domophone-active');
+            }, 1000);
+          } else {
+            alert('Попробуйте еще раз');
+          }
         } else {
           clearphoto();
         }

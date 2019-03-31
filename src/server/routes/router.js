@@ -1,5 +1,6 @@
 import express from 'express';
 
+const fetch = require('node-fetch');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
@@ -58,7 +59,7 @@ router.post('/file', async (req, res) => {
       }
       const guest = new Guests({
         // user_id: req.user._id,
-        // title: req.body.title,
+        title: req.body.title,
         img: newFile
       });
       console.log('TCL: newFile', newFile);
@@ -178,7 +179,7 @@ router.post('/domophone', async (req, res) => {
     const testFile = `test${Date.now()}`;
     base64Img.img(product, './.build/client/public/uploads', testFile, (err, filepath) => {});
     res.status(200);
-    res.send('true');
+    res.send('false');
     let answer = false;
     const baseUrl = 'https://iot-whitelist.herokuapp.com/assets/public/uploads/';
       for (const guest of guests) { // eslint-disable-line
