@@ -159,7 +159,8 @@ router.get('/upload', async (req, res) => {
 });
 
 router.get('/upload2', async (req, res) => {
-  const baseUrl = process.env.baseurl;
+  // const baseUrl = process.env.baseurl || 'https://iot-whitelist.herokuapp.com/assets/public/uploads/';
+  const baseUrl = 'https://iot-whitelist.herokuapp.com/assets/public/uploads/';
   console.log('TCL: baseUrl', baseUrl);
   res.render('upload2');
 });
@@ -179,7 +180,7 @@ router.post('/domophone', async (req, res) => {
     res.status(200);
     res.send('fdgg');
     let answer = false;
-    const baseUrl = process.env.baseurl;
+    const baseUrl = 'https://iot-whitelist.herokuapp.com/assets/public/uploads/';
       for (const guest of guests) { // eslint-disable-line
       const url1 = `${baseUrl}${testFile}`;
       const url2 = `${baseUrl}${guest.img}`;
