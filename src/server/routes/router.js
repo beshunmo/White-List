@@ -92,4 +92,15 @@ router.post('/upload', async (req, res) => {
   res.send(product);
 });
 
+router.get('/domophone', async (req, res) => {
+  res.render('domophone');
+});
+
+router.post('/domophone', (req, res) => {
+  const product = req.body.data;
+  console.log(product);
+  res.status(200);
+  res.send('fdgg');
+});
+
 export default router;
