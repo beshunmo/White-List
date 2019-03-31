@@ -89,13 +89,13 @@ async function getId(url) {
     }
   };
   let jsonResponse = [];
-  await request.post(options, (error, response, body) => {
+  await request.post(options, async (error, response, body) => {
     if (error) {
       console.log('Error: ', error);
       return;
     }
-    jsonResponse = JSON.parse(body);
-    console.log('JSON Response\n');
+    jsonResponse = await JSON.parse(body);
+    console.log(`JSON Response\n${url}`);
     // console.log(jsonResponse);
   });
   return jsonResponse;
