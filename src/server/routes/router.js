@@ -1,5 +1,6 @@
 import express from 'express';
 
+const fetch = require('node-fetch');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
@@ -58,7 +59,7 @@ router.post('/file', async (req, res) => {
       }
       const guest = new Guests({
         // user_id: req.user._id,
-        // title: req.body.title,
+        title: req.body.title,
         img: newFile
       });
       console.log('TCL: newFile', newFile);
@@ -197,6 +198,10 @@ router.post('/domophone', async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
+});
+
+router.get('/whitelist', async (req, res) => {
+  res.render('main-page');
 });
 
 export default router;
