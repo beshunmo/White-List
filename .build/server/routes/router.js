@@ -185,6 +185,8 @@ router.post('/domophone', async (req, res) => {
     base64Img.img(product, './.build/client/public/uploads', testFile, (err, filepath) => {});
     // res.status(200);
     // res.send('fdgg');
+    // res.status(200);
+    // res.send('false');
     let answer = false;
     const baseUrl = 'https://iot-whitelist.herokuapp.com/assets/public/uploads/';
     for (const guest of guests) {
