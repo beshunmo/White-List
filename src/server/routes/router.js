@@ -196,7 +196,6 @@ router.post('/domophone', async (req, res) => {
     // }
   } catch (error) {
     console.log(error.message);
-    
   }
 });
 
