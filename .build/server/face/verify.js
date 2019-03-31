@@ -72,32 +72,36 @@ const imageUrl2 = 'https://4.downloader.disk.yandex.ru/disk/6397c4b7b2df18af7b7d
 // }
 
 async function getId(url) {
-  const params = {
-    returnFaceId: 'true',
-    returnFaceLandmarks: 'false',
-    returnFaceAttributes: 'age,gender,headPose,smile,facialHair,glasses,' + 'emotion,hair,makeup,occlusion,accessories,blur,exposure,noise'
-  };
+  try {
+    const params = {
+      returnFaceId: 'true',
+      returnFaceLandmarks: 'false',
+      returnFaceAttributes: 'age,gender,headPose,smile,facialHair,glasses,' + 'emotion,hair,makeup,occlusion,accessories,blur,exposure,noise'
+    };
 
-  const options = {
-    uri: uriBase,
-    qs: params,
-    body: `${'{"url": ' + '"'}${url}"}`,
-    headers: {
-      'Content-Type': 'application/json',
-      'Ocp-Apim-Subscription-Key': subscriptionKey
-    }
-  };
-  let jsonResponse = [];
-  await request.post(options, async (error, response, body) => {
-    if (error) {
-      console.log('Error: ', error);
-      return;
-    }
-    jsonResponse = await JSON.parse(body);
-    console.log(`JSON Response\n${url}`);
-    // console.log(jsonResponse);
-  });
-  return jsonResponse;
+    const options = {
+      uri: uriBase,
+      qs: params,
+      body: `${'{"url": ' + '"'}${url}"}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': subscriptionKey
+      }
+    };
+    let jsonResponse = [];
+    await request.post(options, async (error, response, body) => {
+      if (error) {
+        console.log('Error: ', error);
+        return;
+      }
+      jsonResponse = await JSON.parse(body);
+      console.log(`JSON Response\n${url}`);
+      // console.log(jsonResponse);
+    });
+    return jsonResponse;
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 async function compareFoto(url1, url2) {
