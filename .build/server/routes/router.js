@@ -188,7 +188,7 @@ router.post('/domophone', async (req, res) => {
     const baseUrl = 'https://iot-whitelist.herokuapp.com/assets/public/uploads/';
     for (const guest of guests) {
       // eslint-disable-line
-      const url1 = `${baseUrl}${testFile}`;
+      const url1 = `${baseUrl}${testFile}.jpg`;
       const url2 = `${baseUrl}${guest.img}`;
       answer = await compareFoto(url1, url2); // eslint-disable-line
       console.log('TCL: answer', answer);
