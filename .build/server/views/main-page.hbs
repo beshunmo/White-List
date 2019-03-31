@@ -63,8 +63,18 @@
       <div class="bubble">Kвартира 2</div>
       <div class="bubble">Квартира 3</div>
       <div class="bubble-add">+</div>
-    </div>
+    </div><div>
     <div class="add-user">Добавить человека</div>
+    <form class='form-add-user' id        =  "uploadForm"
+     enctype   =  "multipart/form-data"
+     action    =  "/api/file"
+     method    =  "post"
+> 
+<label>Имя:
+<input type="text" name="title" /> </label>
+<input type="file" name="userFile" />
+<input type="submit" value="Создать" name="submit">
+</form> </div>
     <div class="user">
       <img class="user-photo" src="/assets/public/images/Первый чел.png" alt="">
       <div class="user-name">Бред</div>
