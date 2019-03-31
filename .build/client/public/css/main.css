@@ -386,6 +386,7 @@ body {
   height: 46px;
   right: 357px;
   top: 200px;
+  display: none;
 
 }
 
@@ -397,6 +398,10 @@ body {
   height: 153px;
   left: 282px;
   top: 263px;
+}
+
+.show {
+  display:block;
 }
 
 .user-name {
