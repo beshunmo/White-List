@@ -177,9 +177,10 @@ router.post('/domophone', async (req, res) => {
     res.status(200);
     res.send('fdgg');
     let answer = false;
+    const baseUrl = process.env.baseUrl || 'http://localhost:3000/assets/public/uploads/';
       for (const guest of guests) { // eslint-disable-line
-      const url1 = `http://localhost:3000/assets/public/uploads/${testFile}`;
-      const url2 = `http://localhost:3000/assets/public/uploads/${guest.img}`;
+      const url1 = `${baseUrl}${testFile}`;
+      const url2 = `${baseUrl}${guest.img}`;
       answer = await compareFoto(url1, url2); // eslint-disable-line
       console.log('TCL: answer', answer);
     }
