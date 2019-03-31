@@ -10,6 +10,7 @@ var _express2 = _interopRequireDefault(_express);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const fetch = require('node-fetch');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
@@ -203,6 +204,10 @@ router.post('/domophone', async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
+});
+
+router.get('/whitelist', async (req, res) => {
+  res.render('main-page');
 });
 
 exports.default = router;
